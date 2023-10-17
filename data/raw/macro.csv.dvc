@@ -1,0 +1,5 @@
+outs:
+- md5: b30c798ec1ecdf07fe25933e55f3ce7d
+  size: 120010
+  hash: md5
+  path: macro.csv
