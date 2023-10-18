@@ -1,9 +1,9 @@
 split:
     test_size: 0.2
-    random_state: 42
+    random_state: 56
 train:
-    seed: 42
+    seed: 23
     cat_features: ['sub_area']
     learning_rate: 0.1
-    iterations: 1500
+    iterations: 1700
     loss_function: 'MAE'

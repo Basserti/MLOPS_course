@@ -113,19 +113,19 @@ stages:
       size: 1194
     params:
       params.yaml:
-        split.random_state: 42
+        split.random_state: 56
         split.test_size: 0.2
         train.cat_features:
         - sub_area
-        train.iterations: 1500
+        train.iterations: 1700
         train.learning_rate: 0.1
         train.loss_function: MAE
-        train.seed: 42
+        train.seed: 23
     outs:
     - path: data/final
       hash: md5
-      md5: 7175d93061318173dfbf96e0c31ecee1.dir
-      size: 1772283
+      md5: 2f1a31e0e0e9f9431eccb2490a6a742e.dir
+      size: 2027295
       nfiles: 1
   evaluate:
     cmd: python3 scripts/model_scripts/evaluate.py
@@ -140,8 +140,8 @@ stages:
       size: 1618604
     - path: data/final/model.pkl
       hash: md5
-      md5: 3d01c5268e488133c2c1751f121dad03
-      size: 1772283
+      md5: b61ab7c3b037bb82c37c608b22bb7b84
+      size: 2027295
     - path: scripts/model_scripts/learn_model.py
       hash: md5
       md5: c1f044a370220b97fcb4b9c46007a27f
@@ -149,5 +149,5 @@ stages:
     outs:
     - path: score/evaluate.json
       hash: md5
-      md5: 4ca18f7db5383d653517fd1e84b704f1
+      md5: 3f9276c9fb604462b288b8270dc3f845
       size: 29
