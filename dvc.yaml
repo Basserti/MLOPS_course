@@ -2,15 +2,52 @@ stages:
   get-data:
     cmd: python3 scripts/data_scripts/get_data.py
     deps:
-    - scripts/data_scripts/get_data.py
+        - data/backup_data_not_used/train.csv
+        - data/backup_data_not_used/test.csv
+        - data/backup_data_not_used/macro.csv
+        - data/backup_data_not_used/submission.csv
+        - scripts/data_scripts/get_data.py
+    outs:
+        - data/raw
   data-preprocessing:
     cmd: python3 scripts/feature_engineering_scripts/data_preprocessing.py
     deps:
-    - data/raw/macro.csv
-    - data/raw/test.csv
-    - data/raw/train.csv
-    - scripts/feature_engineering_scripts/data_preprocessing.py
+        - data/raw/macro.csv
+        - data/raw/test.csv
+        - data/raw/train.csv
+        - scripts/feature_engineering_scripts/data_preprocessing.py
     outs:
-    - data/baselines/macro.csv
-    - data/baselines/test.csv
-    - data/baselines/train.csv
+        - data/baselines/stage2
+  data-fill_na:
+    cmd: python3 scripts/feature_engineering_scripts/data_fill_na.py
+    deps:
+        - data/baselines/stage2/test.csv
+        - data/baselines/stage2/train.csv
+        - scripts/feature_engineering_scripts/data_fill_na.py
+    outs:
+        - data/baselines/stage3
+  data-cat:
+    cmd: python3 scripts/feature_engineering_scripts/data_cat.py
+    deps:
+        - data/baselines/stage3/test.csv
+        - data/baselines/stage3/train.csv
+        - scripts/feature_engineering_scripts/data_cat.py
+    outs:
+        - data/baselines/stage4
+  model-train:
+    cmd: python3 scripts/model_scripts/learn_model.py
+    deps:
+        - data/baselines/stage4/test.csv
+        - data/baselines/stage4/train.csv
+        - scripts/model_scripts/learn_model.py
+    params:
+        - train.seed
+        - train.cat_features
+        - train.learning_rate
+        - train.iterations
+        - train.loss_function
+        - split.test_size
+        - split.random_state
+    outs:
+        - data/final
+

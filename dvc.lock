@@ -3,10 +3,32 @@ stages:
   get-data:
     cmd: python3 scripts/data_scripts/get_data.py
     deps:
+    - path: data/backup_data_not_used/macro.csv
+      hash: md5
+      md5: 6c1c60fce9340fbea02b8760182b2709
+      size: 122495
+    - path: data/backup_data_not_used/submission.csv
+      hash: md5
+      md5: c0cb1ac1442fd105c7c170c6a3cca3ab
+      size: 40421
+    - path: data/backup_data_not_used/test.csv
+      hash: md5
+      md5: fa49b881c3e6b48bb816657ac5a665c3
+      size: 283117
+    - path: data/backup_data_not_used/train.csv
+      hash: md5
+      md5: 472127ca329f571ff5f482619b5d3163
+      size: 1253243
     - path: scripts/data_scripts/get_data.py
       hash: md5
-      md5: ce01450aecffccdc1c9e9f9442048f3c
-      size: 815
+      md5: 84503e6db70b45d2a01ee095dec2ab4b
+      size: 536
+    outs:
+    - path: data/raw
+      hash: md5
+      md5: cb0f854be51ba3076a9fb817d4aadfc2.dir
+      size: 1696787
+      nfiles: 4
   data-preprocessing:
     cmd: python3 scripts/feature_engineering_scripts/data_preprocessing.py
     deps:
@@ -24,18 +46,84 @@ stages:
       size: 1253243
     - path: scripts/feature_engineering_scripts/data_preprocessing.py
       hash: md5
-      md5: aa446354c53446150c7f15d2668c8121
-      size: 46474
+      md5: b98a6e1ae8bece5f278cfbe215749d65
+      size: 46539
     outs:
-    - path: data/baselines/macro.csv
+    - path: data/baselines/stage2
       hash: md5
-      md5: 81af4eccfc76931d2ba7d8e5a6d70f2a
-      size: 55113
-    - path: data/baselines/test.csv
+      md5: 57299a8b2d1f6f593181a9d664ad5921.dir
+      size: 2263923
+      nfiles: 3
+  data-fill_na:
+    cmd: python3 scripts/feature_engineering_scripts/data_fill_na.py
+    deps:
+    - path: data/baselines/stage2/test.csv
       hash: md5
       md5: b7352e4f1326f9a83e0e932478b75ff2
       size: 444674
-    - path: data/baselines/train.csv
+    - path: data/baselines/stage2/train.csv
       hash: md5
       md5: c5321ff6f92328f0eb45fbd714734ee0
       size: 1764136
+    - path: scripts/feature_engineering_scripts/data_fill_na.py
+      hash: md5
+      md5: 14a2b32f328dee58bac324a30504dbd5
+      size: 3522
+    outs:
+    - path: data/baselines/stage3
+      hash: md5
+      md5: 53112b2a7e67db608afcfb3f9c3f30fc.dir
+      size: 2222553
+      nfiles: 2
+  data-cat:
+    cmd: python3 scripts/feature_engineering_scripts/data_cat.py
+    deps:
+    - path: data/baselines/stage3/test.csv
+      hash: md5
+      md5: dd5eaecab46d6b69fd56e6edb8817ff4
+      size: 450929
+    - path: data/baselines/stage3/train.csv
+      hash: md5
+      md5: 43fd0e348351418a654da64d25e042b5
+      size: 1771624
+    - path: scripts/feature_engineering_scripts/data_cat.py
+      hash: md5
+      md5: f92266a1b6d0386ee30490c5f6bb13f0
+      size: 672
+    outs:
+    - path: data/baselines/stage4
+      hash: md5
+      md5: 7eb60a14a607ec9669e584af739ddb44.dir
+      size: 2028009
+      nfiles: 2
+  model-train:
+    cmd: python3 scripts/model_scripts/learn_model.py
+    deps:
+    - path: data/baselines/stage4/test.csv
+      hash: md5
+      md5: bf1a9eda04a7b3030a5a037857015653
+      size: 409405
+    - path: data/baselines/stage4/train.csv
+      hash: md5
+      md5: a043f3cd8ed786c2968c8a710e95ebdf
+      size: 1618604
+    - path: scripts/model_scripts/learn_model.py
+      hash: md5
+      md5: ff58f92fb303a1c182c288a0c463abdf
+      size: 1231
+    params:
+      params.yaml:
+        split.random_state: 42
+        split.test_size: 0.2
+        train.cat_features:
+        - sub_area
+        train.iterations: 1500
+        train.learning_rate: 0.1
+        train.loss_function: MAE
+        train.seed: 42
+    outs:
+    - path: data/final
+      hash: md5
+      md5: 50dc6a3dd8ef9a91ee8a28b0257dedbf.dir
+      size: 1772283
+      nfiles: 1
