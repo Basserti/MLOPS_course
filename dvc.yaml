@@ -50,4 +50,14 @@ stages:
         - split.random_state
     outs:
         - data/final
+  evaluate:
+    cmd: python3 scripts/model_scripts/evaluate.py
+    deps:
+        - data/baselines/stage4/test.csv
+        - data/baselines/stage4/train.csv
+        - data/final/model.pkl
+        - scripts/model_scripts/learn_model.py
+    metrics:
+        - score/evaluate.json:
+            cache: false
 

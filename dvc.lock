@@ -109,8 +109,8 @@ stages:
       size: 1618604
     - path: scripts/model_scripts/learn_model.py
       hash: md5
-      md5: ff58f92fb303a1c182c288a0c463abdf
-      size: 1231
+      md5: c1f044a370220b97fcb4b9c46007a27f
+      size: 1194
     params:
       params.yaml:
         split.random_state: 42
@@ -124,6 +124,30 @@ stages:
     outs:
     - path: data/final
       hash: md5
-      md5: 50dc6a3dd8ef9a91ee8a28b0257dedbf.dir
+      md5: 7175d93061318173dfbf96e0c31ecee1.dir
       size: 1772283
       nfiles: 1
+  evaluate:
+    cmd: python3 scripts/model_scripts/evaluate.py
+    deps:
+    - path: data/baselines/stage4/test.csv
+      hash: md5
+      md5: bf1a9eda04a7b3030a5a037857015653
+      size: 409405
+    - path: data/baselines/stage4/train.csv
+      hash: md5
+      md5: a043f3cd8ed786c2968c8a710e95ebdf
+      size: 1618604
+    - path: data/final/model.pkl
+      hash: md5
+      md5: 3d01c5268e488133c2c1751f121dad03
+      size: 1772283
+    - path: scripts/model_scripts/learn_model.py
+      hash: md5
+      md5: c1f044a370220b97fcb4b9c46007a27f
+      size: 1194
+    outs:
+    - path: score/evaluate.json
+      hash: md5
+      md5: 4ca18f7db5383d653517fd1e84b704f1
+      size: 29
