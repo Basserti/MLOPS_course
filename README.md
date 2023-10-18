@@ -12,5 +12,10 @@
 ### **Links**:
 * Dataset - https://www.kaggle.com/competitions/mlurfuflat *(Данный датасет был взять с курса по спортивному анализу данных)*
 
+### **Other**:
+* Python - 3.9.2
+* Git - git version 2.30.2
+* DVC - 3.26.1
+
 ## Result
 ![image](https://github.com/Basserti/MLOPS_course/assets/51204419/d38295e5-5dd4-456e-98fb-2fd91d0082db)
