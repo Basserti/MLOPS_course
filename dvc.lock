@@ -1,0 +1,58 @@
+schema: '2.0'
+stages:
+  get-data:
+    cmd: python3 scripts/data_scripts/get_data.py
+    deps:
+    - path: scripts/data_scripts/get_data.py
+      hash: md5
+      md5: 95b08a2d498c5714466daa5d8f91b1dc
+      size: 814
+    outs:
+    - path: data/raw/macro.csv
+      hash: md5
+      md5: b30c798ec1ecdf07fe25933e55f3ce7d
+      size: 120010
+    - path: data/raw/submission.csv
+      hash: md5
+      md5: 782ac635b4c595c40e5dd74010f60cd3
+      size: 40417
+    - path: data/raw/test.csv
+      hash: md5
+      md5: fa49b881c3e6b48bb816657ac5a665c3
+      size: 283117
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 472127ca329f571ff5f482619b5d3163
+      size: 1253243
+  data-preprocessing:
+    cmd: python3 scripts/feature_engineering_scripts/data_preprocessing.py
+    deps:
+    - path: data/raw/macro.csv
+      hash: md5
+      md5: b30c798ec1ecdf07fe25933e55f3ce7d
+      size: 120010
+    - path: data/raw/test.csv
+      hash: md5
+      md5: fa49b881c3e6b48bb816657ac5a665c3
+      size: 283117
+    - path: data/raw/train.csv
+      hash: md5
+      md5: 472127ca329f571ff5f482619b5d3163
+      size: 1253243
+    - path: scripts/feature_engineering_scripts/data_preprocessing.py
+      hash: md5
+      md5: aa446354c53446150c7f15d2668c8121
+      size: 46474
+    outs:
+    - path: data/baselines/macro.csv
+      hash: md5
+      md5: 81af4eccfc76931d2ba7d8e5a6d70f2a
+      size: 55113
+    - path: data/baselines/test.csv
+      hash: md5
+      md5: b7352e4f1326f9a83e0e932478b75ff2
+      size: 444674
+    - path: data/baselines/train.csv
+      hash: md5
+      md5: c5321ff6f92328f0eb45fbd714734ee0
+      size: 1764136
