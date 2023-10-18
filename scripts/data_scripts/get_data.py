@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 import pandas as pd
 
 df_train = pd.read_csv('/home/user1/project_mlops/MLOPS_course/data/backup_data_not_used/train.csv')

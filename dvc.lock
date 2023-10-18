@@ -5,25 +5,8 @@ stages:
     deps:
     - path: scripts/data_scripts/get_data.py
       hash: md5
-      md5: 95b08a2d498c5714466daa5d8f91b1dc
-      size: 814
-    outs:
-    - path: data/raw/macro.csv
-      hash: md5
-      md5: b30c798ec1ecdf07fe25933e55f3ce7d
-      size: 120010
-    - path: data/raw/submission.csv
-      hash: md5
-      md5: 782ac635b4c595c40e5dd74010f60cd3
-      size: 40417
-    - path: data/raw/test.csv
-      hash: md5
-      md5: fa49b881c3e6b48bb816657ac5a665c3
-      size: 283117
-    - path: data/raw/train.csv
-      hash: md5
-      md5: 472127ca329f571ff5f482619b5d3163
-      size: 1253243
+      md5: ce01450aecffccdc1c9e9f9442048f3c
+      size: 815
   data-preprocessing:
     cmd: python3 scripts/feature_engineering_scripts/data_preprocessing.py
     deps:
