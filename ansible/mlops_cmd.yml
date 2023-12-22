@@ -1,0 +1,20 @@
+---
+- hosts: prod-srv
+  tasks:
+    - name: Copy model 
+      copy:
+        src: /var/lib/jenkins/workspace/Git-clone/data/final/model.pkl
+        dest: /home/user1/app/model.pkl
+    - name: Copy flask app
+      copy:
+        src: /var/lib/jenkins/workspace/Git-clone/scripts/production/app.py
+        dest: /home/user1/app/app.py
+    - name: Install Flask
+      pip:
+        executable: pip3
+        name: flask
+        state: latest
+    - name: Run Flask app
+      shell:
+        nohup python3 /home/user1/app/app.py > log.txt 2>&1
+
