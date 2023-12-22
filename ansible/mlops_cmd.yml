@@ -22,7 +22,7 @@
     - name: Install CatBoost
       pip:
         executable: pip3
-        name: catboost=1.2.2
+        name: catboost==1.2.2
         state: latest
     - name: Run Flask app
       shell:
