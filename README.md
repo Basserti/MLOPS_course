@@ -16,4 +16,4 @@
 * DVC - 3.26.1
 
 ## Result
-Отчёт [Root](old/Lab4.docx)
+[Отчёт](old/Lab4.docx)
