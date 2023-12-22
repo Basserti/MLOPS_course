@@ -18,7 +18,12 @@
       pip:
         executable: pip3
         name: joblib
-        state: latest
+        state: 1.3.2
+    - name: Install CatBoost
+      pip:
+        executable: pip3
+        name: catboost
+        state: 1.2.2
     - name: Run Flask app
       shell:
         nohup python3 /home/user1/app/app.py > log.txt 2>&1
