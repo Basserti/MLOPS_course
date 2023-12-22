@@ -14,6 +14,11 @@
         executable: pip3
         name: flask
         state: latest
+    - name: Install joblib
+      pip:
+        executable: pip3
+        name: joblib
+        state: 1.3.2
     - name: Run Flask app
       shell:
         nohup python3 /home/user1/app/app.py > log.txt 2>&1
